@@ -9,12 +9,12 @@
 
       <section class="brand-scene" aria-label="Orango brand illustration">
         <div class="logo-wrap">
-          <h1 class="logo-text">ORANGO</h1>
+          <h1 class="logo-text">开个橘子Orango</h1>
         </div>
         <div class="tilted-green-card" aria-hidden="true"></div>
-        <img class="crow-frame" :src="crowFrame" alt="" aria-hidden="true" />
-        <img class="crow-detail" :src="crowBodyDetail" alt="" aria-hidden="true" />
-        <img class="crow-feet" :src="crowFeet" alt="" aria-hidden="true" />
+        <img class="game-frame" :src="gameFrame" alt="" aria-hidden="true" />
+        <img class="game-detail" :src="gameBodyDetail" alt="" aria-hidden="true" />
+        <img class="game-feet" :src="gameFeet" alt="" aria-hidden="true" />
       </section>
 
       <section class="game-card" aria-labelledby="game-title">
@@ -57,9 +57,9 @@
 </template>
 
 <script setup lang="ts">
-import crowBodyDetail from '~/assets/icons/crow-body-detail.svg'
-import crowFeet from '~/assets/icons/crow-feet.svg'
-import crowFrame from '~/assets/icons/crow-frame.svg'
+import gameBodyDetail from '~/assets/icons/game-body-detail.svg'
+import gameFeet from '~/assets/icons/game-feet.svg'
+import gameFrame from '~/assets/icons/game-frame.svg'
 import gameNavDots from '~/assets/icons/game-nav-dots.svg'
 import gameNavLeft from '~/assets/icons/game-nav-left.svg'
 import gameNavRight from '~/assets/icons/game-nav-right.svg'

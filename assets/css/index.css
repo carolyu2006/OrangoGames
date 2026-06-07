@@ -61,7 +61,12 @@
 
 .brand-scene {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  min-width: 100vw;
 }
 
 .logo-wrap {
@@ -69,7 +74,7 @@
   left: 10.8594cqw;
   top: 12.9688cqw;
   width: 12.5cqw;
-  height: 46.0938cqw;
+  height: 55cqw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,11 +83,11 @@
 
 .logo-text {
   color: var(--dark-brown);
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 10cqw;
-  font-weight: 700;
+  font-family: 'AaManHuaJia', 'Lexend Deca', sans-serif;
+  font-size: 5cqw;
+  font-weight: 400;
   letter-spacing: 0.02em;
-  line-height: 1;
+  line-height: 1.2;
   margin: 0;
   transform: rotate(-90deg);
   white-space: nowrap;
@@ -109,7 +114,7 @@
   transform: rotate(-20deg);
 }
 
-.crow-frame {
+.game-frame {
   position: absolute;
   left: 23.0469cqw;
   top: 17.5cqw;
@@ -118,7 +123,7 @@
   z-index: 5;
 }
 
-.crow-detail {
+.game-detail {
   position: absolute;
   left: 30.7938cqw;
   top: 35.3906cqw;
@@ -129,7 +134,7 @@
   z-index: 6;
 }
 
-.crow-feet {
+.game-feet {
   position: absolute;
   left: 33.6844cqw;
   top: 46.3281cqw;
