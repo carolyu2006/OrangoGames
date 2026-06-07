@@ -42,9 +42,6 @@ The primary logo consists of:
 - **White**: Clean, neutral base color
 - **Light Cream**: Soft, warm background color
 
-### Secondary Colors
-- Additional accent colors as shown in color variation versions
-
 ### Color Usage
 - Use Brand Orange as the primary accent color
 - White for backgrounds and text on dark backgrounds

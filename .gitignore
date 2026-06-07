@@ -18,10 +18,12 @@ build/
 out/
 .next/
 .nuxt/
+.output/
 
 # IDE
 .vscode/
 .idea/
+.cursor/
 *.swp
 *.swo
 *~

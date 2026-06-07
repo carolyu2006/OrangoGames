@@ -1,0 +1,254 @@
+.page-container {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: var(--cream);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.figma-frame {
+  position: relative;
+  width: 100vw;
+  max-width: 1280px;
+  aspect-ratio: 1280 / 832;
+  background-color: var(--cream);
+  container-type: inline-size;
+  overflow: hidden;
+}
+
+.nav-bar {
+  position: absolute;
+  inset: 3.5156cqw auto auto 86.7969cqw;
+  z-index: 20;
+}
+
+.nav-btn {
+  position: absolute;
+  border: 0;
+  border-radius: 1.1719cqw;
+  color: var(--white);
+  cursor: pointer;
+  font-family: 'Heiti SC', 'PingFang SC', sans-serif;
+  font-size: 1.875cqw;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  padding: 1.5625cqw 3.9063cqw;
+  white-space: nowrap;
+}
+
+.home-btn {
+  left: 2.6563cqw;
+  top: 0;
+  background-color: var(--sage);
+  transform: rotate(9.2deg);
+}
+
+.about-btn {
+  left: 0;
+  top: 5.4688cqw;
+  background-color: var(--green);
+  transform: rotate(-2.99deg);
+}
+
+.games-btn {
+  left: 2.5cqw;
+  top: 10.625cqw;
+  background-color: var(--orange);
+  transform: rotate(2.9deg);
+}
+
+.brand-scene {
+  position: absolute;
+  inset: 0;
+}
+
+.logo-wrap {
+  position: absolute;
+  left: 10.8594cqw;
+  top: 12.9688cqw;
+  width: 12.5cqw;
+  height: 46.0938cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.logo-text {
+  color: var(--dark-brown);
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 10cqw;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: 0;
+  transform: rotate(-90deg);
+  white-space: nowrap;
+}
+
+.tilted-green-card {
+  position: absolute;
+  left: 17.9688cqw;
+  top: 28.4625cqw;
+  width: 19.7656cqw;
+  height: 24.557cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.tilted-green-card::before {
+  content: '';
+  width: 13.2813cqw;
+  height: 21.2984cqw;
+  background-color: var(--green-dark);
+  border-radius: 1.5625cqw;
+  transform: rotate(-20deg);
+}
+
+.crow-frame {
+  position: absolute;
+  left: 23.0469cqw;
+  top: 17.5cqw;
+  width: 21.375cqw;
+  height: 36.6656cqw;
+  z-index: 5;
+}
+
+.crow-detail {
+  position: absolute;
+  left: 30.7938cqw;
+  top: 35.3906cqw;
+  width: 11.9078cqw;
+  height: 17.2883cqw;
+  transform: rotate(7.45deg);
+  transform-origin: center;
+  z-index: 6;
+}
+
+.crow-feet {
+  position: absolute;
+  left: 33.6844cqw;
+  top: 46.3281cqw;
+  width: 7.9008cqw;
+  height: 2.6219cqw;
+  z-index: 7;
+}
+
+.game-card {
+  position: absolute;
+  left: 51.1719cqw;
+  top: 22.1875cqw;
+  width: 27.8125cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 3.125cqw;
+  z-index: 10;
+}
+
+.game-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1719cqw;
+}
+
+.game-title-zh {
+  color: var(--black);
+  font-family: 'AaManHuaJia', 'Heiti SC', sans-serif;
+  font-size: 5cqw;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0;
+  width: 20cqw;
+}
+
+.game-title-en {
+  color: var(--dark-brown);
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 1.4063cqw;
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+}
+
+.game-info {
+  display: flex;
+  align-items: center;
+  gap: 3.2813cqw;
+  margin-top: -1.7969cqw;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625cqw;
+  color: var(--dark-brown);
+  font-family: 'Heiti SC', 'PingFang SC', sans-serif;
+  font-size: 1.4063cqw;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.info-item-icon {
+  width: 2.3734cqw;
+  height: 2.2289cqw;
+  flex: 0 0 auto;
+}
+
+.duration-icon {
+  width: 2.3156cqw;
+  height: 2.2344cqw;
+}
+
+.game-description {
+  color: var(--dark-brown);
+  font-family: 'PingFang SC', 'Heiti SC', sans-serif;
+  font-size: 1.4063cqw;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  width: 27.8125cqw;
+}
+
+.game-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1.5625cqw;
+}
+
+.carousel-btn {
+  width: 5.0781cqw;
+  height: 2.3438cqw;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.carousel-btn img {
+  display: block;
+  width: 5.0781cqw;
+  height: 2.3438cqw;
+}
+
+.carousel-dots {
+  display: block;
+  width: 13.7055cqw;
+  height: 1.782cqw;
+}
+
+@media (max-aspect-ratio: 1280 / 832) {
+  .figma-frame {
+    width: 100vw;
+  }
+}
+
+@media (min-aspect-ratio: 1280 / 832) {
+  .figma-frame {
+    width: calc(100vh * 1280 / 832);
+  }
+}

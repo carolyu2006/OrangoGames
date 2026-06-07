@@ -1,14 +1,5 @@
 <template>
-  <div class="app-container">
-    <TheNav />
+  <div>
     <NuxtPage />
-    <TheFooter />
   </div>
 </template>
-
-<style>
-.app-container {
-  min-height: 100vh;
-  background: var(--cream);
-}
-</style>
