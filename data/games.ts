@@ -1,0 +1,75 @@
+import gwtcBackCrowBody from "~/assets/games/go-with-the-crow/back-crow-body.svg";
+import gwtcFrameBottom from "~/assets/games/go-with-the-crow/frame-bottom.svg";
+import gwtcFrameTop from "~/assets/games/go-with-the-crow/frame-top.svg";
+import gwtcFrontFeet from "~/assets/games/go-with-the-crow/front-feet.svg";
+import obBackBlockGreen from "~/assets/games/orange-blocks/back-block-green.png";
+import obBackBlockStrip from "~/assets/games/orange-blocks/back-block-strip.png";
+import obBackOrangeSlice from "~/assets/games/orange-blocks/back-orange-slice.png";
+import obFrameBottom from "~/assets/games/orange-blocks/frame-bottom.svg";
+import obFrameTop from "~/assets/games/orange-blocks/frame-top.svg";
+import obMidFallingPiece from "~/assets/games/orange-blocks/mid-falling-piece.svg";
+import obMidGrid from "~/assets/games/orange-blocks/mid-grid.png";
+import obMidScreenBlocks from "~/assets/games/orange-blocks/mid-screen-blocks.svg";
+
+export type GameVisualId = "go-with-the-crow" | "orange-blocks" | "orange-court";
+
+export type Game = {
+  id: GameVisualId;
+  titleZh: string;
+  titleEn: string;
+  type: string;
+  players: string;
+  duration: string;
+  description: string;
+};
+
+export const games: readonly Game[] = [
+  {
+    id: "go-with-the-crow",
+    titleZh: "同流合乌",
+    titleEn: "Go With The Crow",
+    type: "竞技",
+    players: "2-6 人",
+    duration: "20分钟",
+    description:
+      "实际上，公开演讲很有趣。玩家会看到他们从未见过的图片幻灯片和他们从未写过的单词。演讲从来没这么奇怪过，也没这么有趣过。",
+  },
+  {
+    id: "orange-blocks",
+    titleZh: "橘子方块",
+    titleEn: "Ortris",
+    type: "竞技",
+    players: "2-8 人",
+    duration: "20分钟",
+    description:
+      "这是一段介绍。这是一段介绍。这是一段介绍。这是一段介绍。这是一段介绍。这是一段介绍。这是一段介绍。",
+  },
+  {
+    id: "orange-court",
+    titleZh: "橘子法庭",
+    titleEn: "Orange Court",
+    type: "派对",
+    players: "4-8 人",
+    duration: "30分钟",
+    description:
+      "占位文案：扮演法官、律师或证人，在荒诞案件中辩论与投票。规则简单，戏剧效果拉满。",
+  },
+] as const;
+
+export const goWithTheCrowAssets = {
+  frameTop: gwtcFrameTop,
+  frameBottom: gwtcFrameBottom,
+  backCrowBody: gwtcBackCrowBody,
+  frontFeet: gwtcFrontFeet,
+} as const;
+
+export const orangeBlocksAssets = {
+  frameTop: obFrameTop,
+  frameBottom: obFrameBottom,
+  backOrangeSlice: obBackOrangeSlice,
+  backBlockGreen: obBackBlockGreen,
+  backBlockStrip: obBackBlockStrip,
+  midGrid: obMidGrid,
+  midScreenBlocks: obMidScreenBlocks,
+  midFallingPiece: obMidFallingPiece,
+} as const;
