@@ -2,16 +2,16 @@ import gwtcBackCrowBody from "~/assets/games/go-with-the-crow/back-crow-body.svg
 import gwtcFrameBottom from "~/assets/games/go-with-the-crow/frame-bottom.svg";
 import gwtcFrameTop from "~/assets/games/go-with-the-crow/frame-top.svg";
 import gwtcFrontFeet from "~/assets/games/go-with-the-crow/front-feet.svg";
-import obBackBlockGreen from "~/assets/games/orange-blocks/back-block-green.png";
-import obBackBlockStrip from "~/assets/games/orange-blocks/back-block-strip.png";
-import obBackOrangeSlice from "~/assets/games/orange-blocks/back-orange-slice.png";
-import obFrameBottom from "~/assets/games/orange-blocks/frame-bottom.svg";
-import obFrameTop from "~/assets/games/orange-blocks/frame-top.svg";
-import obMidFallingPiece from "~/assets/games/orange-blocks/mid-falling-piece.svg";
-import obMidGrid from "~/assets/games/orange-blocks/mid-grid.png";
-import obMidScreenBlocks from "~/assets/games/orange-blocks/mid-screen-blocks.svg";
+import obBackBlockGreen from "~/assets/games/ortris/back-block-green.png";
+import obBackBlockStrip from "~/assets/games/ortris/back-block-strip.png";
+import obBackOrangeSlice from "~/assets/games/ortris/back-orange-slice.png";
+import obFrameBottom from "~/assets/games/ortris/frame-bottom.svg";
+import obFrameTop from "~/assets/games/ortris/frame-top.svg";
+import obMidFallingPiece from "~/assets/games/ortris/mid-falling-piece.svg";
+import obMidGrid from "~/assets/games/ortris/mid-grid.png";
+import obMidScreenBlocks from "~/assets/games/ortris/mid-screen-blocks.svg";
 
-export type GameVisualId = "go-with-the-crow" | "orange-blocks" | "orange-court";
+export type GameVisualId = "go-with-the-crow" | "ortris" | "orange-court";
 
 export type Game = {
   id: GameVisualId;
@@ -35,7 +35,7 @@ export const games: readonly Game[] = [
       "实际上，公开演讲很有趣。玩家会看到他们从未见过的图片幻灯片和他们从未写过的单词。演讲从来没这么奇怪过，也没这么有趣过。",
   },
   {
-    id: "orange-blocks",
+    id: "ortris",
     titleZh: "橘子方块",
     titleEn: "Ortris",
     type: "竞技",
@@ -63,7 +63,7 @@ export const goWithTheCrowAssets = {
   frontFeet: gwtcFrontFeet,
 } as const;
 
-export const orangeBlocksAssets = {
+export const OrtrisAssets = {
   frameTop: obFrameTop,
   frameBottom: obFrameBottom,
   backOrangeSlice: obBackOrangeSlice,

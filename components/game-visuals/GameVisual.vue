@@ -1,5 +1,5 @@
 <template>
-  <div class="game-visual">
+  <div class="game-visual" :style="frameTimingStyle">
     <div
       class="game-visual__stage"
       :class="{
@@ -30,13 +30,20 @@
 import type { GameVisualId } from "~/data/games";
 import {
   goWithTheCrowAssets,
-  orangeBlocksAssets,
+  OrtrisAssets,
 } from "~/data/games";
 import GoWithTheCrowVisual from "~/components/game-visuals/GoWithTheCrowVisual.vue";
-import OrangeBlocksVisual from "~/components/game-visuals/OrangeBlocksVisual.vue";
+import OrtrisVisual from "~/components/game-visuals/Ortris.vue";
 
-const FRAME_CLOSE_MS = 675;
-const FRAME_OPEN_MS = 825;
+const FRAME_CLOSE_MS = 500;
+const FRAME_PAUSE_MS = 300;
+const FRAME_OPEN_MS = 700;
+
+const frameTimingStyle = {
+  "--frame-close-duration": `${FRAME_CLOSE_MS}ms`,
+  "--frame-pause-duration": `${FRAME_PAUSE_MS}ms`,
+  "--frame-open-duration": `${FRAME_OPEN_MS}ms`,
+};
 
 const props = defineProps<{
   visualId: GameVisualId;
@@ -52,6 +59,7 @@ const visualAnimPhase = ref<"idle" | "exiting" | "entering">("idle");
 
 let swapTimer: ReturnType<typeof setTimeout> | null = null;
 let enterTimer: ReturnType<typeof setTimeout> | null = null;
+let idleTimer: ReturnType<typeof setTimeout> | null = null;
 
 function clearVisualTimers() {
   if (swapTimer) {
@@ -62,12 +70,16 @@ function clearVisualTimers() {
     clearTimeout(enterTimer);
     enterTimer = null;
   }
+  if (idleTimer) {
+    clearTimeout(idleTimer);
+    idleTimer = null;
+  }
 }
 
 function resolveVisualComponent(id: GameVisualId) {
   switch (id) {
-    case "orange-blocks":
-      return OrangeBlocksVisual;
+    case "ortris":
+      return OrtrisVisual;
     case "go-with-the-crow":
     case "orange-court":
     default:
@@ -77,10 +89,10 @@ function resolveVisualComponent(id: GameVisualId) {
 
 function resolveFrameAssets(id: GameVisualId) {
   switch (id) {
-    case "orange-blocks":
+    case "ortris":
       return {
-        frameTop: orangeBlocksAssets.frameTop,
-        frameBottom: orangeBlocksAssets.frameBottom,
+        frameTop: OrtrisAssets.frameTop,
+        frameBottom: OrtrisAssets.frameBottom,
       };
     case "go-with-the-crow":
     case "orange-court":
@@ -107,11 +119,14 @@ watch(
 
     swapTimer = setTimeout(() => {
       displayedVisualId.value = props.visualId;
-      visualAnimPhase.value = "entering";
 
       enterTimer = setTimeout(() => {
-        visualAnimPhase.value = "idle";
-      }, FRAME_OPEN_MS);
+        visualAnimPhase.value = "entering";
+
+        idleTimer = setTimeout(() => {
+          visualAnimPhase.value = "idle";
+        }, FRAME_OPEN_MS);
+      }, FRAME_PAUSE_MS);
     }, FRAME_CLOSE_MS);
   },
 );
@@ -121,8 +136,12 @@ onUnmounted(clearVisualTimers);
 
 <style scoped>
 .game-visual {
-  --frame-close-duration: 675ms;
-  --frame-open-duration: 825ms;
+  --frame-close-duration: 500ms;
+  --frame-pause-duration: 300ms;
+  --frame-open-duration: 700ms;
+  --frame-total-duration: calc(
+    var(--frame-close-duration) + var(--frame-pause-duration) + var(--frame-open-duration)
+  );
 
   position: absolute;
   inset: 0;
@@ -134,7 +153,7 @@ onUnmounted(clearVisualTimers);
   inset: 0;
   z-index: 1;
   transform: scale(1);
-  transform-origin: 435px 624px;
+  transform-origin: 435px 680px;
 }
 
 .game-visual__stage.is-exiting {
@@ -148,14 +167,14 @@ onUnmounted(clearVisualTimers);
 .game-visual__frame-top {
   position: absolute;
   z-index: 5;
-  left: 299px;
+  left: 302px;
   top: 228px;
   width: 265px;
   height: 166px;
 }
 
 .game-visual__frame-top.is-switching {
-  animation: game-frame-close-open 1.5s ease-in-out forwards;
+  animation: game-frame-close-open var(--frame-total-duration) ease-in-out forwards;
 }
 
 .game-visual__frame-bottom {
@@ -172,7 +191,11 @@ onUnmounted(clearVisualTimers);
     transform: translateY(0);
   }
 
-  45% {
+  26.6% {
+    transform: translateY(230px);
+  }
+
+  69.1% {
     transform: translateY(230px);
   }
 

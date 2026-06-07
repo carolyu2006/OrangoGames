@@ -20,14 +20,14 @@
 
     <div class="visual-layer visual-layer--mid">
       <div class="ob-mid-screen">
-        <div class="ob-mid-screen-bg"></div>
+        <!-- <div class="ob-mid-screen-bg"></div> -->
         <img class="ob-mid-screen-grid" :src="assets.midGrid" alt="" />
       </div>
-      <img
+      <!-- <img
         class="ob-mid-screen-blocks"
         :src="assets.midScreenBlocks"
         alt=""
-      />
+      /> -->
       <img
         class="ob-mid-falling-piece"
         :src="assets.midFallingPiece"
@@ -55,9 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import { orangeBlocksAssets } from "~/data/games";
+import { OrtrisAssets } from "~/data/games";
 
-const assets = orangeBlocksAssets;
+const assets = OrtrisAssets;
 </script>
 
 <style scoped>
@@ -89,7 +89,7 @@ const assets = orangeBlocksAssets;
 .ob-back-block-strip {
   position: absolute;
   left: 253px;
-  top: 456px;
+  top: 500px;
   width: 126px;
   height: 30px;
   transform: rotate(33deg);
@@ -107,7 +107,7 @@ const assets = orangeBlocksAssets;
 .ob-back-orange-slice {
   position: absolute;
   left: 280px;
-  top: 532px;
+  top: 570px;
   width: 95px;
   height: 62px;
   transform: rotate(33.99deg);
@@ -119,44 +119,27 @@ const assets = orangeBlocksAssets;
   top: 354px;
   width: 177px;
   height: 266px;
-  transform: rotate(8.18deg);
+  transform: rotate(6deg);
   transform-origin: center;
-}
-
-.ob-mid-screen-bg {
-  position: absolute;
-  inset: 0;
-  background-color: var(--black);
-  border-radius: 13px;
-  box-shadow: inset 0 10px 1px rgba(0, 0, 0, 0.1);
 }
 
 .ob-mid-screen-grid {
   position: absolute;
   left: 9px;
-  top: 16px;
-  width: 160px;
-  height: 240px;
+  top: 72px;
+  width: 180px;
+  height: 260px;
   border-radius: 13px;
-  opacity: 0.6;
   object-fit: cover;
-}
-
-.ob-mid-screen-blocks {
-  position: absolute;
-  left: 379px;
-  top: 523px;
-  width: 171px;
-  height: 99px;
 }
 
 .ob-mid-falling-piece {
   position: absolute;
-  left: 456px;
-  top: 339px;
+  left: 430px;
+  top: 420px;
   width: 85px;
   height: 62px;
-  transform: rotate(-105.84deg) scaleY(-1);
+  transform: rotate(97deg) scaleY(-1);
 }
 
 .ob-front-controller {
