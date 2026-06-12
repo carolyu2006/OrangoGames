@@ -6,75 +6,80 @@
       <button class="nav-btn games-btn">游戏库</button>
     </nav> -->
 
-    <div class="logo-wrap">
-      <h1 class="logo-text">ORANGO</h1>
-    </div>
+    <Transition name="intro-logo">
+      <div v-if="isIntroPage" class="logo-wrap">
+        <h1 class="logo-text">ORANGO</h1>
+      </div>
+    </Transition>
 
     <GameVisual
-      :visual-id="currentGame.id"
+      :visual-id="currentGame?.id ?? null"
       :frame-switching="frameSwitching"
+      :centered="isIntroPage"
       @frame-animation-end="onFrameAnimationEnd"
     />
 
-    <section class="game-card" aria-labelledby="game-title">
-      <header class="game-header">
-        <h2 id="game-title" class="game-title-zh">{{ currentGame.titleZh }}</h2>
-        <p class="game-title-en">{{ currentGame.titleEn }}</p>
-      </header>
+    <Transition name="game-card">
+      <section v-if="currentGame" class="game-card" aria-labelledby="game-title">
+        <header class="game-header">
+          <h2 id="game-title" class="game-title-zh">{{ currentGame.titleZh }}</h2>
+          <p class="game-title-en">{{ currentGame.titleEn }}</p>
+        </header>
 
-      <div class="game-info" aria-label="Game details">
-        <div class="info-item">
-          <img class="info-item-icon" :src="iconCompetitive" alt="" />
-          <span>{{ currentGame.type }}</span>
-        </div>
-        <div class="info-item">
-          <img class="info-item-icon" :src="iconPlayers" alt="" />
-          <span>{{ currentGame.players }}</span>
-        </div>
-        <div class="info-item">
-          <img
-            class="info-item-icon duration-icon"
-            :src="iconDuration"
-            alt=""
-          />
-          <span>{{ currentGame.duration }}</span>
-        </div>
-      </div>
-
-      <p class="game-description">
-        {{ currentGame.description }}
-      </p>
-
-      <div class="game-navigation" aria-label="Game carousel controls">
-        <button
-          class="carousel-btn"
-          aria-label="Previous game"
-          @click="prevGame"
-        >
-          <img :src="gameNavLeft" alt="" />
-        </button>
-        <div class="carousel-dots" role="tablist" aria-label="Select game">
-          <button
-            v-for="(game, index) in games"
-            :key="game.id"
-            class="carousel-dot"
-            :class="{ active: index === currentIndex }"
-            role="tab"
-            :aria-selected="index === currentIndex"
-            :aria-label="game.titleZh"
-            @click="goToGame(index)"
-          >
+        <div class="game-info" aria-label="Game details">
+          <div class="info-item">
+            <img class="info-item-icon" :src="iconCompetitive" alt="" />
+            <span>{{ currentGame.type }}</span>
+          </div>
+          <div class="info-item">
+            <img class="info-item-icon" :src="iconPlayers" alt="" />
+            <span>{{ currentGame.players }}</span>
+          </div>
+          <div class="info-item">
             <img
-              :src="index === currentIndex ? gameNavDotsSelected : gameNavDots"
+              class="info-item-icon duration-icon"
+              :src="iconDuration"
               alt=""
             />
-          </button>
+            <span>{{ currentGame.duration }}</span>
+          </div>
         </div>
-        <button class="carousel-btn" aria-label="Next game" @click="nextGame">
-          <img :src="gameNavRight" alt="" />
+
+        <p class="game-description">
+          {{ currentGame.description }}
+        </p>
+      </section>
+    </Transition>
+
+    <div class="game-navigation" aria-label="Page carousel controls">
+      <button
+        class="carousel-btn"
+        aria-label="Previous page"
+        @click="prevPage"
+      >
+        <img :src="gameNavLeft" alt="" />
+      </button>
+      <div class="carousel-dots" role="tablist" aria-label="Select page">
+        <button
+          v-for="page in pages"
+          :key="page.index"
+          class="carousel-dot"
+          :class="{ active: page.index === currentPageIndex }"
+          role="tab"
+          :aria-selected="page.index === currentPageIndex"
+          :aria-label="page.label"
+          @click="goToPage(page.index)"
+        >
+          <img
+            :src="page.index === currentPageIndex ? gameNavDotsSelected : gameNavDots"
+            alt=""
+          />
         </button>
       </div>
-    </section>
+      <button class="carousel-btn" aria-label="Next page" @click="nextPage">
+        <img :src="gameNavRight" alt="" />
+      </button>
+    </div>
   </main>
 </template>
 
@@ -97,55 +102,76 @@ useHead({
   title: "开个橘子Orango",
 });
 
-const AUTO_PLAY_MS = 3000;
+const AUTO_PLAY_MS = 5000;
 
-const currentIndex = ref(0);
-const currentGame = computed(() => games[currentIndex.value]);
+const currentPageIndex = ref(0);
+const pageCount = games.length + 1;
+const isIntroPage = computed(() => currentPageIndex.value === 0);
+const currentGame = computed(() => games[currentPageIndex.value - 1] ?? null);
+const pages = computed(() => [
+  { index: 0, label: "ORANGO intro" },
+  ...games.map((game, index) => ({
+    index: index + 1,
+    label: game.titleZh,
+  })),
+]);
 const frameSwitching = ref(false);
-const hasMounted = ref(false);
+const queuedPageIndex = ref<number | null>(null);
+const queuedPageShouldRestartAutoPlay = ref(false);
 
 let autoPlayTimer: ReturnType<typeof setInterval> | null = null;
 
-async function triggerFrameAnimation() {
+async function changePage(index: number, shouldRestartAutoPlay = true) {
+  if (index === currentPageIndex.value) return;
+
+  if (frameSwitching.value) {
+    queuedPageIndex.value = index;
+    queuedPageShouldRestartAutoPlay.value ||= shouldRestartAutoPlay;
+    return;
+  }
+
   frameSwitching.value = false;
   await nextTick();
+  currentPageIndex.value = index;
   frameSwitching.value = true;
+
+  if (shouldRestartAutoPlay) {
+    restartAutoPlay();
+  }
 }
 
 function onFrameAnimationEnd() {
   frameSwitching.value = false;
+
+  if (queuedPageIndex.value === null) return;
+
+  const nextPageIndex = queuedPageIndex.value;
+  const shouldRestartAutoPlay = queuedPageShouldRestartAutoPlay.value;
+  queuedPageIndex.value = null;
+  queuedPageShouldRestartAutoPlay.value = false;
+  changePage(nextPageIndex, shouldRestartAutoPlay);
 }
 
-watch(currentIndex, () => {
-  if (!hasMounted.value) return;
-  triggerFrameAnimation();
-});
-
-function goToGame(index: number) {
-  if (index === currentIndex.value) return;
-  currentIndex.value = index;
-  restartAutoPlay();
+function goToPage(index: number) {
+  changePage(index);
 }
 
-function nextGame() {
-  currentIndex.value = (currentIndex.value + 1) % games.length;
-  restartAutoPlay();
+function nextPage() {
+  changePage((currentPageIndex.value + 1) % pageCount);
 }
 
-function prevGame() {
-  currentIndex.value = (currentIndex.value - 1 + games.length) % games.length;
-  restartAutoPlay();
+function prevPage() {
+  changePage((currentPageIndex.value - 1 + pageCount) % pageCount);
 }
 
 function restartAutoPlay() {
   if (autoPlayTimer) clearInterval(autoPlayTimer);
   autoPlayTimer = setInterval(() => {
-    currentIndex.value = (currentIndex.value + 1) % games.length;
+    changePage((currentPageIndex.value + 1) % pageCount, false);
   }, AUTO_PLAY_MS);
 }
 
 onMounted(() => {
-  hasMounted.value = true;
   restartAutoPlay();
 });
 

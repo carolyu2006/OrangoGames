@@ -1,15 +1,13 @@
 import gwtcBackCrowBody from "~/assets/games/go-with-the-crow/back-crow-body.svg";
-import gwtcFrameBottom from "~/assets/games/go-with-the-crow/frame-bottom.svg";
-import gwtcFrameTop from "~/assets/games/go-with-the-crow/frame-top.svg";
 import gwtcFrontFeet from "~/assets/games/go-with-the-crow/front-feet.svg";
 import obBackBlockGreen from "~/assets/games/ortris/back-block-green.png";
 import obBackBlockStrip from "~/assets/games/ortris/back-block-strip.png";
 import obBackOrangeSlice from "~/assets/games/ortris/back-orange-slice.png";
-import obFrameBottom from "~/assets/games/ortris/frame-bottom.svg";
-import obFrameTop from "~/assets/games/ortris/frame-top.svg";
 import obMidFallingPiece from "~/assets/games/ortris/mid-falling-piece.svg";
 import obMidGrid from "~/assets/games/ortris/mid-grid.png";
 import obMidScreenBlocks from "~/assets/games/ortris/mid-screen-blocks.svg";
+import frameTop from "~/assets/games/frame-top.svg";
+import frameBottom from "~/assets/games/frame-bottom.svg";
 
 export type GameVisualId = "go-with-the-crow" | "ortris" | "orange-court";
 
@@ -56,16 +54,17 @@ export const games: readonly Game[] = [
   },
 ] as const;
 
+export const commonAssets = {
+  frameTop: frameTop,
+  frameBottom: frameBottom,
+}
+
 export const goWithTheCrowAssets = {
-  frameTop: gwtcFrameTop,
-  frameBottom: gwtcFrameBottom,
   backCrowBody: gwtcBackCrowBody,
   frontFeet: gwtcFrontFeet,
 } as const;
 
 export const OrtrisAssets = {
-  frameTop: obFrameTop,
-  frameBottom: obFrameBottom,
   backOrangeSlice: obBackOrangeSlice,
   backBlockGreen: obBackBlockGreen,
   backBlockStrip: obBackBlockStrip,
