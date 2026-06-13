@@ -1,4 +1,8 @@
 .page-container {
+  --design-orange-center-x: 435px;
+  --design-section-center-x: 656.5px;
+  --design-game-card-x: 655px;
+
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -49,17 +53,27 @@
   transform: rotate(2.9deg);
 }
 
-.logo-wrap {
+.brand-header {
   position: absolute;
   left: 50%;
-  top: 90px;
+  top: 40px;
   width: max-content;
-  height: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
   transform: translateX(-50%);
   z-index: 10;
+}
+
+.brand-logo-zh {
+  color: var(--dark-brown);
+  font-family: 'AaManHuaJia', 'Heiti SC', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .logo-text {
@@ -83,18 +97,18 @@
 .intro-logo-enter-from,
 .intro-logo-leave-to {
   opacity: 0;
-  transform: translate(-50%, -36px);
+  transform: translateY(-36px);
 }
 
 .intro-logo-enter-to,
 .intro-logo-leave-from {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
 }
 
 .game-card {
   position: absolute;
-  left: 655px;
+  left: calc(50vw - var(--design-section-center-x) + var(--design-game-card-x));
   top: 284px;
   width: 356px;
   display: flex;
@@ -132,8 +146,9 @@
 .game-title-en {
   color: var(--dark-brown);
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 700;
   line-height: 1;
   margin: 0;
 }
@@ -150,9 +165,9 @@
   align-items: center;
   gap: 8px;
   color: var(--dark-brown);
-  font-family: 'Heiti SC', 'PingFang SC', sans-serif;
+  font-family: 'PingFang SC', sans-serif;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
   white-space: nowrap;
 }
@@ -177,58 +192,4 @@
   margin: 0;
   width: 356px;
   height: 130px;
-}
-
-.game-navigation {
-  position: absolute;
-  left: 50%;
-  bottom: 54px;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  transform: translateX(-50%);
-}
-
-.carousel-btn {
-  width: 65px;
-  height: 30px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  padding: 0;
-}
-
-.carousel-btn img {
-  display: block;
-  width: 65px;
-  height: 30px;
-}
-
-.carousel-dots {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: auto;
-  min-width: 196px;
-  height: 23px;
-}
-
-.carousel-dot {
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  padding: 0;
-  line-height: 0;
-}
-
-.carousel-dot img {
-  display: block;
-  width: 23px;
-  height: 23px;
-}
-
-.carousel-dot.active img {
-  width: 91px;
-  height: 12px;
 }

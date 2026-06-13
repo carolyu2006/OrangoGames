@@ -1,38 +1,16 @@
 <template>
   <div class="ob-visual">
     <div class="visual-layer visual-layer--back">
-      <img
-        class="ob-back-block-strip"
-        :src="assets.backBlockStrip"
-        alt=""
-      />
-      <img
-        class="ob-back-block-green"
-        :src="assets.backBlockGreen"
-        alt=""
-      />
-      <img
-        class="ob-back-orange-slice"
-        :src="assets.backOrangeSlice"
-        alt=""
-      />
+      <img class="ob-block-red" :src="assets.blockRed" alt="" />
+      <img class="ob-block-orange" :src="assets.blockOrange" alt="" />
+      <img class="ob-block-green" :src="assets.blockGreen" alt="" />
     </div>
 
     <div class="visual-layer visual-layer--mid">
       <div class="ob-mid-screen">
-        <!-- <div class="ob-mid-screen-bg"></div> -->
         <img class="ob-mid-screen-grid" :src="assets.midGrid" alt="" />
       </div>
-      <!-- <img
-        class="ob-mid-screen-blocks"
-        :src="assets.midScreenBlocks"
-        alt=""
-      /> -->
-      <img
-        class="ob-mid-falling-piece"
-        :src="assets.midFallingPiece"
-        alt=""
-      />
+      <img class="ob-block-blue" :src="assets.blockBlue" alt="" />
     </div>
 
     <div class="visual-layer visual-layer--front">
@@ -86,31 +64,34 @@ const assets = OrtrisAssets;
   z-index: 8;
 }
 
-.ob-back-block-strip {
+.ob-block-red {
   position: absolute;
   left: 253px;
   top: 500px;
-  width: 126px;
+  width: 127px;
   height: 30px;
   transform: rotate(33deg);
+  display: block;
 }
 
-.ob-back-block-green {
+.ob-block-orange {
   position: absolute;
   left: 302px;
   top: 416px;
   width: 62px;
-  height: 61px;
+  height: 62px;
   transform: rotate(33deg);
+  display: block;
 }
 
-.ob-back-orange-slice {
+.ob-block-green {
   position: absolute;
   left: 280px;
   top: 570px;
   width: 95px;
-  height: 62px;
+  height: 63px;
   transform: rotate(33.99deg);
+  display: block;
 }
 
 .ob-mid-screen {
@@ -133,13 +114,14 @@ const assets = OrtrisAssets;
   object-fit: cover;
 }
 
-.ob-mid-falling-piece {
+.ob-block-blue {
   position: absolute;
-  left: 430px;
-  top: 420px;
-  width: 85px;
-  height: 62px;
-  transform: rotate(97deg) scaleY(-1);
+  left: 450px;
+  top: 405px;
+  width: 62px;
+  height: 94px;
+  transform: rotate(186deg) scaleY(-1);
+  display: block;
 }
 
 .ob-front-controller {
@@ -249,5 +231,4 @@ const assets = OrtrisAssets;
   left: 22px;
   border-left: 12px solid #fffef4;
 }
-
 </style>
