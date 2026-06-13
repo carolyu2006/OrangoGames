@@ -8,14 +8,14 @@ export default defineNuxtPlugin(() => {
 
   useHead({
     link: [
-      { rel: 'icon', type: 'image/svg+xml', href: smallLogoSvg },
+      // { rel: 'icon', type: 'image/svg+xml', href: smallLogoSvg },
       { rel: 'icon', type: 'image/png', href: smallLogoPng },
-      { rel: 'apple-touch-icon', href: smallLogoPng },
+      // { rel: 'apple-touch-icon', href: smallLogoPng },
     ],
-    meta: [
-      { property: 'og:image', content: `${origin}${ogImage}` },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image', content: `${origin}${twitterImage}` },
-    ],
+    // meta: [
+    //   { property: 'og:image', content: `${origin}${ogImage}` },
+    //   { name: 'twitter:card', content: 'summary_large_image' },
+    //   { name: 'twitter:image', content: `${origin}${twitterImage}` },
+    // ],
   })
 })
