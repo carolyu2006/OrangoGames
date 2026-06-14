@@ -386,7 +386,7 @@ onUnmounted(clearVisualTimers);
     transform:
       translateX(calc(50vw - var(--design-orange-center-x, 435px)))
       translateY(calc(
-        100svh
+        var(--viewport-height, 100vh)
         - var(--mobile-orange-bottom-gap, 92px)
         - (var(--design-frame-bottom-y, 624px) + var(--design-frame-bottom-height, 77.64px)) *
           var(--visual-scale, 0.5)

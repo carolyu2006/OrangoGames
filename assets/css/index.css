@@ -10,12 +10,19 @@
       var(--design-scene-y-offset)
   );
   --page-edge-spacing: 40px;
+  --viewport-height: 100vh;
 
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: var(--viewport-height);
   background-color: var(--cream);
   overflow: hidden;
+}
+
+@supports (height: 100dvh) {
+  .page-container {
+    --viewport-height: 100dvh;
+  }
 }
 
 .nav-bar {
