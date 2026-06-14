@@ -1,5 +1,5 @@
 <template>
-  <main class="page-container">
+  <main class="page-container" :style="{ '--visual-scale': visualScale }">
     <!-- <nav class="nav-bar" aria-label="Main navigation">
       <button class="nav-btn home-btn">主页</button>
       <button class="nav-btn about-btn">关于我们</button>
@@ -7,7 +7,9 @@
     </nav> -->
 
     <div class="brand-header">
-      <p class="brand-logo-zh">开个橘子</p>
+      <Transition name="intro-logo">
+        <p v-if="showChineseBrand" class="brand-logo-zh">开个橘子</p>
+      </Transition>
       <Transition name="intro-logo">
         <h1 v-if="isIntroPage" class="logo-text">ORANGO</h1>
       </Transition>
@@ -41,6 +43,12 @@
         <p class="game-description">
           {{ currentGame.description }}
         </p>
+
+        <a class="game-start-btn" :href="currentGame.playUrl" target="_blank" rel="noopener noreferrer"
+          @mouseenter="onStartButtonEnter" @mouseleave="onStartButtonLeave">
+          <img class="game-start-btn__icon" :src="orangoIcon" alt="" aria-hidden="true" />
+          <span class="game-start-btn__label">开始游戏</span>
+        </a>
       </section>
     </Transition>
 
@@ -55,6 +63,7 @@ import { games } from "~/data/games";
 import iconCompetitive from "~/assets/icons/shared/icon-competitive.svg";
 import iconDuration from "~/assets/icons/shared/icon-duration.svg";
 import iconPlayers from "~/assets/icons/shared/icon-players.svg";
+import orangoIcon from "~/assets/logo/orango-icon.svg";
 
 definePageMeta({
   layout: "blank",
@@ -78,10 +87,39 @@ const pages = computed(() => [
   })),
 ]);
 const frameSwitching = ref(false);
+const isStartButtonHovered = ref(false);
+
+const MOBILE_BREAKPOINT_PX = 768;
+const ORANGE_DESIGN_WIDTH = 275;
+const MOBILE_SCALE_MIN = 0.42;
+const MOBILE_SCALE_MAX = 0.7;
+const visualScale = ref(1);
+const isMobile = ref(false);
+const showChineseBrand = computed(() => isIntroPage.value || !isMobile.value);
+
+function updateVisualScale() {
+  if (typeof window === "undefined") return;
+
+  const width = window.innerWidth;
+  isMobile.value = width <= MOBILE_BREAKPOINT_PX;
+
+  if (width > MOBILE_BREAKPOINT_PX) {
+    visualScale.value = 1;
+    return;
+  }
+
+  const target = (width * 0.5) / ORANGE_DESIGN_WIDTH;
+  visualScale.value = Math.min(
+    MOBILE_SCALE_MAX,
+    Math.max(MOBILE_SCALE_MIN, target),
+  );
+}
 
 const TRANSITION_SAFETY_MS = 1600;
 
-let autoPlayTimer: ReturnType<typeof setInterval> | null = null;
+let autoPlayTimer: ReturnType<typeof setTimeout> | null = null;
+let autoPlayDeadline = 0;
+let autoPlayRemainingMs = AUTO_PLAY_MS;
 let transitionSafetyTimer: ReturnType<typeof setTimeout> | null = null;
 
 function clearTransitionSafetyTimer() {
@@ -141,20 +179,64 @@ function prevPage() {
   changePage((currentPageIndex.value - 1 + pageCount) % pageCount);
 }
 
+function clearAutoPlayTimer() {
+  if (autoPlayTimer) {
+    clearTimeout(autoPlayTimer);
+    autoPlayTimer = null;
+  }
+}
+
+function onAutoPlayTick() {
+  autoPlayTimer = null;
+  changePage((currentPageIndex.value + 1) % pageCount, false);
+  scheduleAutoPlay(AUTO_PLAY_MS);
+}
+
+function scheduleAutoPlay(delayMs: number) {
+  clearAutoPlayTimer();
+  autoPlayRemainingMs = delayMs;
+
+  if (isStartButtonHovered.value) return;
+
+  autoPlayDeadline = Date.now() + delayMs;
+  autoPlayTimer = setTimeout(onAutoPlayTick, delayMs);
+}
+
+function pauseAutoPlay() {
+  if (!autoPlayTimer) return;
+
+  autoPlayRemainingMs = Math.max(0, autoPlayDeadline - Date.now());
+  clearAutoPlayTimer();
+}
+
+function resumeAutoPlay() {
+  scheduleAutoPlay(autoPlayRemainingMs);
+}
+
 function restartAutoPlay() {
-  if (autoPlayTimer) clearInterval(autoPlayTimer);
-  autoPlayTimer = setInterval(() => {
-    changePage((currentPageIndex.value + 1) % pageCount, false);
-  }, AUTO_PLAY_MS);
+  scheduleAutoPlay(AUTO_PLAY_MS);
+}
+
+function onStartButtonEnter() {
+  isStartButtonHovered.value = true;
+  pauseAutoPlay();
+}
+
+function onStartButtonLeave() {
+  isStartButtonHovered.value = false;
+  resumeAutoPlay();
 }
 
 onMounted(() => {
   restartAutoPlay();
+  updateVisualScale();
+  window.addEventListener("resize", updateVisualScale);
 });
 
 onUnmounted(() => {
-  if (autoPlayTimer) clearInterval(autoPlayTimer);
+  clearAutoPlayTimer();
   clearTransitionSafetyTimer();
+  window.removeEventListener("resize", updateVisualScale);
 });
 </script>
 

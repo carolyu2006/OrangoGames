@@ -19,6 +19,7 @@ export type Game = {
   players: string;
   duration: string;
   description: string;
+  playUrl: string;
 };
 
 export const games: readonly Game[] = [
@@ -31,6 +32,7 @@ export const games: readonly Game[] = [
     duration: "20 分钟",
     description:
       "实际上，公开演讲很有趣。玩家会看到他们从未见过的图片幻灯片和他们从未写过的单词。演讲从来没这么奇怪过，也没这么有趣过。",
+    playUrl: "https://orango.ing",
   },
   {
     id: "ortris",
@@ -41,6 +43,7 @@ export const games: readonly Game[] = [
     duration: "20 分钟",
     description:
       "这是一段介绍。这是一段介绍。这是一段介绍。这是一段介绍。这是一段介绍。这是一段介绍。这是一段介绍。",
+    playUrl: "https://orango.ing",
   },
   {
     id: "orange-court",
@@ -51,6 +54,7 @@ export const games: readonly Game[] = [
     duration: "30 分钟",
     description:
       "扮演法官、律师或证人，在荒诞案件中辩论与投票。规则简单，戏剧效果拉满。",
+    playUrl: "https://orango.ing",
   },
 ] as const;
 

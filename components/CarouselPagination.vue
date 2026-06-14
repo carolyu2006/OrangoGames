@@ -1,14 +1,8 @@
 <template>
   <div class="carousel-pagination" aria-label="Page carousel controls" :aria-busy="disabled">
     <div class="carousel-dots" role="tablist" aria-label="Select page">
-      <CarouselNavDot
-        v-for="page in pages"
-        :key="page.index"
-        :active="page.index === currentIndex"
-        :disabled="disabled"
-        :label="page.label"
-        @select="$emit('select', page.index)"
-      />
+      <CarouselNavDot v-for="page in pages" :key="page.index" :active="page.index === currentIndex" :disabled="disabled"
+        :label="page.label" @select="$emit('select', page.index)" />
     </div>
   </div>
 </template>
@@ -36,7 +30,7 @@ defineEmits<{
 .carousel-pagination {
   position: absolute;
   left: 50%;
-  bottom: 40px;
+  bottom: var(--page-edge-spacing, 40px);
   z-index: 20;
   display: flex;
   align-items: center;

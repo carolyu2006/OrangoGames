@@ -223,14 +223,14 @@ onUnmounted(clearVisualTimers);
   --frame-pause-duration: 300ms;
   --frame-open-duration: 700ms;
   --frame-total-duration: calc(var(--frame-close-duration) + var(--frame-pause-duration) + var(--frame-open-duration));
-  --scene-y-offset: -80px;
-  --frame-center-x: 435px;
+  --scene-y-offset: var(--design-scene-y-offset, -80px);
+  --frame-center-x: var(--design-orange-center-x, 435px);
   --frame-top-width: 269.62px;
   --frame-top-height: 170px;
   --frame-bottom-width: 275px;
-  --frame-bottom-height: 77.64px;
+  --frame-bottom-height: var(--design-frame-bottom-height, 77.64px);
   --frame-top-y: 228px;
-  --frame-bottom-y: 624px;
+  --frame-bottom-y: var(--design-frame-bottom-y, 624px);
 
   position: absolute;
   inset: 0;
@@ -377,6 +377,25 @@ onUnmounted(clearVisualTimers);
 
   to {
     transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .game-visual__scene {
+    transform-origin: var(--design-orange-center-x, 435px) 0;
+    transform:
+      translateX(calc(50vw - var(--design-orange-center-x, 435px)))
+      translateY(calc(
+        100svh
+        - var(--mobile-orange-bottom-gap, 92px)
+        - (var(--design-frame-bottom-y, 624px) + var(--design-frame-bottom-height, 77.64px)) *
+          var(--visual-scale, 0.5)
+      ))
+      scale(var(--visual-scale, 0.5));
+  }
+
+  .game-visual__scene.is-centered .game-visual__scene-inner {
+    transform: translateX(0);
   }
 }
 </style>
