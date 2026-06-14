@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
+    preset: 'cloudflare-pages',
     compatibilityDate: '2026-06-07',
     minify: false,
     rollupConfig: {
